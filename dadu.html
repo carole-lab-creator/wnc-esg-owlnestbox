@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>橫山大肚國小篇｜貓頭鷹的育雛筆記</title>
+<link rel="stylesheet" href="notebook.css">
+<style>
+/* ── 大肚國小篇專屬 · 主色調：苔蘚綠 ── */
+:root {
+  --accent:       var(--moss-mid);
+  --accent-light: var(--moss-pale);
+  --accent-dark:  var(--moss-dark);
+}
+.nb-hero { background:
+  radial-gradient(ellipse at 65% 35%, rgba(90,122,94,0.55) 0%, transparent 60%),
+  radial-gradient(ellipse at 15% 80%, rgba(90,140,60,0.22) 0%, transparent 45%),
+  linear-gradient(160deg, #1a2e1c 0%, #2d4a32 50%, #1e3a24 100%);
+}
+
+/* 成長圖卡頂色 */
+.nb-growth-card::before { background: var(--moss-mid); }
+
+/* 公鳥餵食記錄條 */
+.feeding-record {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+.food-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-aged);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  font-family: var(--font-serif);
+  transition: all 0.2s;
+  cursor: default;
+}
+.food-chip:hover {
+  background: var(--moss-pale);
+  border-color: var(--moss-mid);
+  color: var(--moss-dark);
+  transform: scale(1.05);
+}
+
+/* 最高紀錄 Banner */
+.record-banner {
+  background: linear-gradient(135deg, #eef4ee, #e0ead8);
+  border: 1.5px solid var(--moss-pale);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0;
+}
+.record-banner .rb-icon { font-size: 1.8rem; flex-shrink: 0; }
+.record-banner .rb-text {
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--moss-dark);
+  line-height: 1.7;
+}
+.record-banner .rb-text strong {
+  font-size: 1.05rem;
+  color: var(--moss-dark);
+}
+
+/* 頁面底部導航 */
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--paper-aged);
+}
+.page-nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--ink-light);
+  transition: color 0.2s;
+}
+.page-nav a:hover { color: var(--moss-dark); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nb-nav">
+  <a href="index.html" class="nb-nav-brand">🦉 <span>育雛筆記</span></a>
+  <ul class="nb-nav-links">
+    <li><a href="index.html">首頁</a></li>
+    <li><a href="dadu.html" class="active">大肚國小篇</a></li>
+    <li><a href="xinfeng.html">新豐國中篇</a></li>
+  </ul>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="nb-hero">
+  <div class="nb-hero-art"></div>
+  <div class="nb-hero-stamp">
+    <span class="stamp-owl">🦉</span>
+    順遂篇<br>圓滿離巢
+  </div>
+  <div class="nb-hero-content">
+    <div class="nb-hero-eyebrow">Chapter I · 橫山大肚國小 · 2024–2025</div>
+    <h1 class="nb-hero-title">
+      樟樹上的<em>神仙眷侶</em><br>大自然最完美的育雛教科書
+    </h1>
+    <p class="nb-hero-sub">
+      選用連續兩年成功育雛的校園，這裡是屬於領角鴞最溫柔的故事開端。
+    </p>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="nb-page">
+  <div class="nb-page-inner">
+
+    <!-- 開場白 -->
+    <p class="nb-lead reveal">
+      2024 年 10 月 22 日的傍晚，新竹橫山大肚國小的操場旁，一個人工巢箱被牢牢固定在樟樹高處。
+      所有人都以為，野鳥要適應人類的造物，少說也得花幾個月。沒想到，<strong>當天半夜，第一隻領角鴞便踏著無聲的翅膀，悄然降落在巢箱前</strong>——牠歪著頭，好奇地探索這個新家，就此揭開這場長達兩年的「微光連載」。
+    </p>
+
+    <!-- ── CHAPTER 1 ── -->
+    <div class="nb-chapter reveal">
+      <div class="nb-chapter-num">01</div>
+      <div class="nb-chapter-body">
+        <div class="nb-chapter-label">CHAPTER ONE</div>
+        <div class="nb-chapter-title">領角鴞情緣與三顆蛋的約定</div>
+      </div>
+    </div>
+    <div class="nb-chapter-line"></div>
+
+    <!-- 時間軸：入住 → 產蛋 -->
+    <div class="nb-timeline" id="timeline1">
+
+      <div class="nb-tl-item">
+        <div class="nb-tl-dot amber"></div>
+        <span class="nb-tl-date">2024.10.22 · 入夜</span>
+        <p class="nb-tl-text">巢箱掛上當晚，貓頭鷹便前來探訪——大自然給了人類一個不可思議的驚喜</p>
+      </div>
+
+      <div class="nb-tl-item">
+        <div class="nb-tl-dot"></div>
+        <span class="nb-tl-date">2025.03.07</span>
+        <p class="nb-tl-text"><strong>正式入住：</strong>公鳥和母鳥先後進入巢箱，開始觀察到公鳥捕捉食物餵食母鳥，模範家庭的分工就此展開</p>
+      </div>
+
+      <div class="nb-tl-item">
+        <div class="nb-tl-dot"></div>
+        <span class="nb-tl-date">2025.03.14 起</span>
+        <p class="nb-tl-text"><strong>生命的精準時鐘：</strong>母鳥產下第一顆蛋；之後每隔 2∼3 天再添一顆，共產下 <strong>3 顆白蛋</strong>，細心塞在肚皮下用體溫守護</p>
+      </div>
+
+      <div class="nb-tl-item">
+        <div class="nb-tl-dot amber pulse"></div>
+        <span class="nb-tl-date">2025.04.17</span>
+        <p class="nb-tl-text"><strong>破殼聲傳來：</strong>第一隻小貓頭鷹誕生！母鳥優雅地吃掉蛋殼、溫柔地幫雛鳥理毛。其餘兩隻在 1∼2 天內陸續孵化</p>
+      </div>
+
+    </div>
+
+    <!-- 知識小卡 1 -->
+    <div class="reveal">
+      <button class="nb-knowledge-trigger" onclick="toggleKnowledge(this)">
+        <span class="kt-icon">🦉</span>
+        貓頭鷹小知識：人工巢箱的生態意義
+        <span class="kt-arrow">▼</span>
+      </button>
+      <div class="nb-knowledge-panel">
+        <div class="nb-knowledge-inner" data-icon="🌿">
+          <div class="nb-ki-title">人工巢箱（Nest Box）是一種「生態補償」</div>
+          <p class="nb-ki-body">
+            領角鴞是淺山地區的<em>指標物種</em>，但因為都市擴張與林地破碎化，<strong>大樹洞越來越少</strong>。
+            人工巢箱不是干擾，而是一種寶貴的「生態補償」——為找不到樹洞成家的牠們，爭取一條生命的生路。
+            WNC 由員工親手製作、安裝的巢箱，正是這條生路最實在的一塊磚。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHAPTER 2 ── -->
+    <div class="nb-divider reveal"><div class="nb-divider-line"></div><div class="nb-divider-icon">🌱</div><div class="nb-divider-line"></div></div>
+
+    <div class="nb-chapter reveal">
+      <div class="nb-chapter-num">02</div>
+      <div class="nb-chapter-body">
+        <div class="nb-chapter-label">CHAPTER TWO</div>
+        <div class="nb-chapter-title">從棉花球到森林獵手</div>
+      </div>
+    </div>
+    <div class="nb-chapter-line"></div>
+
+    <!-- 成長階段圖卡 -->
+    <div class="nb-growth-cards reveal">
+      <div class="nb-growth-card">
+        <span class="nb-gc-emoji">🥚</span>
+        <div class="nb-gc-phase">PHASE 1 · 孵化期</div>
+        <div class="nb-gc-date">4/17 破殼</div>
+        <div class="nb-gc-title">會動的白色棉花球</div>
+        <div class="nb-gc-desc">剛孵化，全身覆滿白色絨毛，三隻小寶貝擠在一起，像極了「會動的棉花球」</div>
+      </div>
+      <div class="nb-growth-card">
+        <span class="nb-gc-emoji">🐦</span>
+        <div class="nb-gc-phase">PHASE 2 · 成長期</div>
+        <div class="nb-gc-date">出生 10 天後</div>
+        <div class="nb-gc-title">中型灰色毛球</div>
+        <div class="nb-gc-desc">毛色從純白轉為深灰，體型快速增大，眼睛也越來越圓、越來越亮</div>
+      </div>
+      <div class="nb-growth-card">
+        <span class="nb-gc-emoji">🦅</span>
+        <div class="nb-gc-phase">PHASE 3 · 離巢期</div>
+        <div class="nb-gc-date">5/8∼5/12</div>
+        <div class="nb-gc-title">森林夜行俠誕生</div>
+        <div class="nb-gc-desc">探出頭、抓樹枝、練展翅，5/12 傍晚 7 時，三隻小貓頭鷹陸續躍向夜空</div>
+      </div>
+    </div>
+
+    <!-- 公鳥餵食 -->
+    <p class="nb-body reveal">
+      隨後的一個月，是生命暴風抽高的高速公路。領角鴞爸爸奮力尋找各種食物餵食家人：
+    </p>
+
+    <div class="feeding-record reveal">
+      <span class="food-chip">🐸 青蛙</span>
+      <span class="food-chip">🐭 老鼠</span>
+      <span class="food-chip">🦎 蜥蜴</span>
+      <span class="food-chip">🦎 壁虎</span>
+      <span class="food-chip">🦇 蝙蝠</span>
+      <span class="food-chip">🦗 竹節蟲</span>
+      <span class="food-chip">🦗 螽斯</span>
+    </div>
+
+    <div class="record-banner reveal">
+      <span class="rb-icon">🏆</span>
+      <div class="rb-text">
+        <strong>最高紀錄：一個晚上來回 50 趟餵食！</strong><br>
+        領角鴞爸爸的外送神功，讓三隻小貓頭鷹在短短一個月內迅速成長。
+      </div>
+    </div>
+
+    <!-- 時間軸：成長 → 離巢 -->
+    <div class="nb-timeline" id="timeline2">
+
+      <div class="nb-tl-item">
+        <div class="nb-tl-dot"></div>
+        <span class="nb-tl-date">2025.05.08</span>
+        <p class="nb-tl-text">小貓頭鷹開始好奇地<strong>探出巢箱</strong>，用爪子抓取樹枝，探索巢箱外的世界</p>
+      </div>
+
+      <div class="nb-tl-item">
+        <div class="nb-tl-dot"></div>
+        <span class="nb-tl-date">2025.05.10</span>
+        <p class="nb-tl-text">開始<strong>練習展翅學飛</strong>，三隻小傢伙擠在巢箱門口，興奮地探頭看大肚國小的孩子們在操場上奔跑</p>
+      </div>
+
+      <div class="nb-tl-item">
+        <div class="nb-tl-dot pulse"></div>
+        <span class="nb-tl-date">2025.05.12 · 傍晚 7 時</span>
+        <p class="nb-tl-text">夕陽餘暉剛落，三隻小貓頭鷹拍打著逐漸豐滿的羽翼，<strong>陸續躍向夜空</strong>，完成了牠們生命中的首次飛行。育雛圓滿成功 🎉</p>
+      </div>
+
+    </div>
+
+    <blockquote class="nb-quote reveal">
+      大肚國小的巢箱空了，但新竹的黑夜裡，多了三隻守護森林的夜行俠。
+    </blockquote>
+
+    <!-- 影片按鈕 -->
+    <div class="reveal" style="margin: 28px 0 8px;">
+      <a href="https://www.youtube.com/watch?v=sUJP331eChg" target="_blank" rel="noopener" class="nb-video-btn">
+        <span class="vb-icon">▶</span>
+        WNC 巢箱紀錄影片
+        <span class="vb-sub">YouTube →</span>
+      </a>
+    </div>
+
+    <!-- 頁面底部導航 -->
+    <div class="page-nav">
+      <a href="index.html">← 回到首頁</a>
+      <a href="xinfeng.html">下一篇：新豐國中的生命考驗 →</a>
+    </div>
+
+  </div><!-- /nb-page-inner -->
+</div><!-- /nb-page -->
+
+<!-- FOOTER -->
+<footer class="nb-footer">
+  <div class="nb-footer-logo">🦉 貓頭鷹的育雛筆記</div>
+  <p>WNC 跨界永續生態地圖 · 啟碁科技機構處 · 2024–2026</p>
+  <p style="margin-top:8px;font-size:0.78rem;opacity:0.5;">
+    本計畫所有觀測均在不干擾野生動物的原則下進行。領角鴞為保育類野生動物，請勿私自飼養。
+  </p>
+</footer>
+
+<script>
+/* ── 知識小卡開關 ── */
+function toggleKnowledge(btn) {
+  btn.classList.toggle('open');
+  const panel = btn.nextElementSibling;
+  panel.classList.toggle('open');
+}
+
+/* ── 捲動動畫（立即顯示視窗內元素） ── */
+function initReveal() {
+  const targets = document.querySelectorAll('.nb-tl-item, .nb-ci, .reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+  targets.forEach((el, i) => {
+    // 已在視窗內 → 直接顯示（不加動畫延遲）
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.style.transitionDelay = (i % 4) * 0.06 + 's';
+      el.classList.add('visible');
+    } else {
+      el.style.transitionDelay = (i % 4) * 0.07 + 's';
+      io.observe(el);
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', initReveal);
+</script>
+</body>
+</html>

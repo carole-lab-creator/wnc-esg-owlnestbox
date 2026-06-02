@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貓頭鷹的育雛筆記：WNC 跨界永續生態地圖</title>
+<link rel="stylesheet" href="notebook.css">
+<style>
+/* ── 首頁專屬樣式 ── */
+.home-hero {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 60% 30%, rgba(90,122,94,0.4) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 75%, rgba(160,82,45,0.18) 0%, transparent 45%),
+    linear-gradient(170deg, #1a2e1c 0%, #2d4a32 45%, #1e3520 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 60px 24px;
+}
+
+/* 手帳格線裝飾 */
+.home-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(transparent, transparent 39px, rgba(168,196,160,0.06) 39px, rgba(168,196,160,0.06) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(168,196,160,0.04) 39px, rgba(168,196,160,0.04) 40px);
+  pointer-events: none;
+}
+
+.home-title-block {
+  text-align: center;
+  max-width: 720px;
+  position: relative; z-index: 2;
+}
+.home-kana {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--moss-pale);
+  letter-spacing: 0.25em;
+  margin-bottom: 18px;
+  display: block;
+}
+.home-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  color: var(--paper-light);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+.home-main-title .em-green { color: var(--moss-pale); }
+.home-main-title .em-amber { color: var(--amber-light); }
+.home-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(250,245,233,0.65);
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+.home-wnc-badge {
+  display: inline-block;
+  border: 1.5px solid rgba(196,144,58,0.5);
+  border-radius: 3px;
+  padding: 4px 14px;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: rgba(224,176,80,0.8);
+  letter-spacing: 0.12em;
+  margin-bottom: 48px;
+}
+
+/* 兩隻貓頭鷹裝飾 */
+.home-owl-deco {
+  font-size: 4rem;
+  margin-bottom: 24px;
+  display: block;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+  animation: owlBreathe 4s ease-in-out infinite;
+}
+@keyframes owlBreathe {
+  0%,100%{ transform: translateY(0); }
+  50%    { transform: translateY(-6px); }
+}
+
+/* 進入章節按鈕群 */
+.home-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 660px;
+  width: 100%;
+  position: relative; z-index: 2;
+}
+.home-card {
+  background: rgba(250,245,233,0.08);
+  border: 1.5px solid rgba(250,245,233,0.18);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-decoration: none;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+.home-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  transition: opacity 0.3s;
+}
+.home-card.green::before { background: linear-gradient(to right, var(--moss-mid), var(--moss-pale)); }
+.home-card.amber::before { background: linear-gradient(to right, var(--rust), var(--amber-light)); }
+.home-card:hover {
+  background: rgba(250,245,233,0.14);
+  border-color: rgba(250,245,233,0.32);
+  transform: translateY(-4px);
+}
+.hc-emoji { font-size: 2rem; display: block; margin-bottom: 12px; }
+.hc-chapter {
+  font-family: var(--font-hand);
+  font-size: 0.8rem;
+  color: var(--moss-pale);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.hc-school {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--paper-light);
+  margin-bottom: 6px;
+}
+.hc-desc {
+  font-size: 0.82rem;
+  color: rgba(250,245,233,0.6);
+  line-height: 1.65;
+}
+.hc-tag {
+  display: inline-block;
+  margin-top: 12px;
+  border: 1px solid rgba(250,245,233,0.3);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-family: var(--font-hand);
+  font-size: 0.78rem;
+  color: rgba(250,245,233,0.7);
+}
+
+/* 底部捲動提示 */
+.home-scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-hand);
+  font-size: 0.82rem;
+  color: rgba(250,245,233,0.4);
+  letter-spacing: 0.1em;
+  text-align: center;
+  animation: hintBob 2.5s ease-in-out infinite;
+}
+@keyframes hintBob {
+  0%,100%{ transform: translateX(-50%) translateY(0); }
+  50%    { transform: translateX(-50%) translateY(5px); }
+}
+
+/* ── About Section ── */
+.home-about {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 48px 80px;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 32px;
+}
+.about-text-block .nb-lead { margin-bottom: 20px; }
+.about-stats {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-aged);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-paper);
+}
+.about-stats h4 {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--moss-mid);
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+}
+.stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed var(--paper-aged);
+}
+.stat-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.stat-num {
+  font-family: var(--font-hand);
+  font-size: 2.2rem;
+  color: var(--moss-dark);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.stat-unit {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  color: var(--moss-light);
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  line-height: 1.55;
+}
+
+.school-list {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.school-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  background: var(--paper-mid);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--moss-mid);
+  text-decoration: none;
+  transition: all 0.22s;
+}
+.school-item:hover {
+  background: var(--paper-deep);
+  transform: translateX(4px);
+}
+.si-emoji { font-size: 1.3rem; flex-shrink: 0; }
+.si-body { flex: 1; }
+.si-name {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-mid);
+  display: block;
+}
+.si-tag {
+  font-family: var(--font-hand);
+  font-size: 0.78rem;
+  color: var(--moss-light);
+}
+.si-arrow { color: var(--ink-faint); font-size: 0.9rem; }
+
+@media (max-width: 768px) {
+  .home-cards { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 28px; }
+  .home-about { padding: 48px 20px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nb-nav">
+  <a href="index.html" class="nb-nav-brand">🦉 <span>育雛筆記</span></a>
+  <ul class="nb-nav-links">
+    <li><a href="#about">關於計畫</a></li>
+    <li><a href="dadu.html">大肚國小篇</a></li>
+    <li><a href="xinfeng.html">新豐國中篇</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="home-hero">
+  <div class="home-title-block">
+    <span class="home-kana">WNC 跨界永續生態地圖 · 2024–2026</span>
+    <span class="home-owl-deco">🦉</span>
+    <h1 class="home-main-title">
+      貓頭鷹的<span class="em-green">育雛筆記</span>
+    </h1>
+    <p class="home-subtitle">
+      選用連續兩年成功育雛的校園，將硬核的生態知識揉進充滿溫度的故事裡。
+    </p>
+    <div class="home-wnc-badge">啟碁科技 WNC · 機構處 永續生態計畫</div>
+
+    <div class="home-cards">
+      <a href="dadu.html" class="home-card green">
+        <span class="hc-emoji">🌿</span>
+        <div class="hc-chapter">Chapter I · 順遂篇</div>
+        <div class="hc-school">橫山大肚國小</div>
+        <div class="hc-desc">樟樹上的神仙眷侶，三顆蛋的約定，大自然最完美的育雛教科書</div>
+        <span class="hc-tag">連續兩年 · 圓滿離巢 →</span>
+      </a>
+      <a href="xinfeng.html" class="home-card amber">
+        <span class="hc-emoji">⚡</span>
+        <div class="hc-chapter">Chapter II · 韌性篇</div>
+        <div class="hc-school">新豐國中</div>
+        <div class="hc-desc">33% 的殘酷、美台跨海救援，以及 12 天後震驚所有人的謎團</div>
+        <span class="hc-tag">生命韌性 · 第二窩奇蹟 →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="home-scroll-hint">↓ 了解更多</div>
+</section>
+
+<!-- ABOUT -->
+<section class="home-about" id="about">
+  <div class="nb-chapter">
+    <div class="nb-chapter-num">ℹ</div>
+    <div class="nb-chapter-body">
+      <div class="nb-chapter-label">ABOUT THIS PROJECT</div>
+      <div class="nb-chapter-title">關於這本生態筆記</div>
+    </div>
+  </div>
+  <div class="nb-chapter-line"></div>
+
+  <div class="about-grid">
+    <div class="about-text-block">
+      <p class="nb-lead">
+        本計畫由<strong>啟碁科技（WNC）機構處</strong>連續兩年自主發起永續行動，
+        贊助新竹在地 11 所學校架設網路攝影機，總共設置 <strong>18 個生態巢箱</strong>，
+        透過跨界合作，將科技轉化為守護生物多樣性的公民科學力量。
+      </p>
+      <p class="nb-body">
+        我們選用<strong>橫山大肚國小</strong>與<strong>新豐國中</strong>這兩所連續兩年成功育雛的學校，
+        以田野觀察的方式記錄下領角鴞從入住、產蛋、孵化到離巢的完整生命歷程。
+        每一格時間軸、每一張成長圖卡，都是真實發生在校園裡的故事。
+      </p>
+      <p class="nb-body">
+        領角鴞是台灣淺山地區的指標物種。
+        牠們在這裡安家，告訴我們：<strong>科技與生態可以共存，企業的永續從員工的心出發。</strong>
+      </p>
+
+      <!-- 影片區塊 -->
+  <div class="reveal" style="margin: 8px 0 36px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+    <a href="https://www.youtube.com/watch?v=sUJP331eChg" target="_blank" rel="noopener" class="nb-video-btn">
+      <span class="vb-icon">▶</span>
+      WNC 巢箱紀錄影片
+      <span class="vb-sub">YouTube →</span>
+    </a>
+    <a href="https://youtu.be/trzWwspWIsg?si=S2WWwS-HpjGJwCNB" target="_blank" rel="noopener" class="nb-video-btn">
+      <span class="vb-icon">▶</span>
+      新聞報導－企業捐巢箱助復育領角鴞
+      <span class="vb-sub">YouTube →</span>
+    </a>
+  </div>
+
+  <div class="school-list">
+        <a href="dadu.html" class="school-item">
+          <span class="si-emoji">🌳</span>
+          <div class="si-body">
+            <span class="si-name">橫山大肚國小篇</span>
+            <span class="si-tag">🌿 順遂篇 · 三隻幼鴞成功離巢</span>
+          </div>
+          <span class="si-arrow">→</span>
+        </a>
+        <a href="xinfeng.html" class="school-item" style="border-left-color: var(--rust);">
+          <span class="si-emoji">🌙</span>
+          <div class="si-body">
+            <span class="si-name">新豐國中篇</span>
+            <span class="si-tag">⚡ 韌性篇 · 美台救援 × 第二窩奇蹟</span>
+          </div>
+          <span class="si-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="about-stats">
+      <h4>🦉 計畫數字</h4>
+      <div class="stat-row">
+        <span class="stat-num">11</span>
+        <span class="stat-unit">所</span>
+        <span class="stat-label">新竹在地學校<br>架設網路攝影機</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-num">18</span>
+        <span class="stat-unit">個</span>
+        <span class="stat-label">生態巢箱<br>由員工親手製作，委託竹風樂境燒炭窩安裝</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-num">2</span>
+        <span class="stat-unit">年</span>
+        <span class="stat-label">連續自主發起<br>永續生態行動</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-num">∞</span>
+        <span class="stat-unit"></span>
+        <span class="stat-label">對生命故事的守護<br>從不設期限</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="nb-footer">
+  <div class="nb-footer-logo">🦉 貓頭鷹的育雛筆記</div>
+  <p>WNC 跨界永續生態地圖 · 啟碁科技機構處 · 2024–2026</p>
+  <p style="margin-top:8px; font-size:0.78rem; opacity:0.5;">
+    本計畫所有觀測均在不干擾野生動物的原則下進行。領角鴞為保育類野生動物，請勿私自飼養。
+  </p>
+</footer>
+
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

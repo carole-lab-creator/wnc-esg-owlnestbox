@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新豐國中篇｜貓頭鷹的育雛筆記</title>
+<link rel="stylesheet" href="notebook.css">
+<style>
+/* ── 新豐國中篇專屬 · 主色調：沉靜藍 × 磚紅 ── */
+.nb-hero {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(106,144,168,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 75%, rgba(160,82,45,0.20) 0%, transparent 45%),
+    linear-gradient(165deg, #18242e 0%, #1e3040 50%, #15202c 100%);
+}
+.nb-growth-card::before { background: var(--sky-faded); }
+.nb-chapter-line { background: linear-gradient(to right, var(--sky-faded), transparent); }
+
+/* 美台救援連線圖 */
+.rescue-map {
+  background: linear-gradient(135deg, #eef2f6, #e4ecf2);
+  border: 1.5px solid var(--sky-light);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  margin: 24px 0;
+  position: relative;
+  overflow: hidden;
+}
+.rescue-map::before {
+  content: '🌏';
+  position: absolute; top: 16px; right: 20px;
+  font-size: 2.2rem; opacity: 0.18;
+}
+.rescue-title {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--sky-faded);
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+}
+.rescue-nodes {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  row-gap: 12px;
+}
+.rescue-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 100px;
+}
+.rn-icon {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+  display: block;
+}
+.rn-label {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  color: var(--ink-mid);
+  line-height: 1.4;
+}
+.rescue-arrow {
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  color: var(--sky-faded);
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+.rescue-note {
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: var(--sky-faded);
+  font-family: var(--font-serif);
+  font-style: italic;
+  border-top: 1px dashed var(--sky-light);
+  padding-top: 12px;
+}
+
+/* 成功率視覺 */
+.rate-visual {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-aged);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+.rate-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 4px solid var(--rust);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: #fdf5f0;
+}
+.rate-num {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  color: var(--rust);
+  line-height: 1;
+}
+.rate-unit {
+  font-family: var(--font-hand);
+  font-size: 0.72rem;
+  color: var(--rust-light);
+}
+.rate-text {
+  font-size: 0.88rem;
+  color: var(--ink-light);
+  line-height: 1.8;
+}
+.rate-text strong { color: var(--ink-mid); }
+
+/* 危機現場照片 */
+.crisis-photos {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0;
+}
+.crisis-photo-item {
+  flex: 1;
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid var(--paper-aged);
+  background: var(--paper-mid);
+  box-shadow: 2px 3px 10px rgba(0,0,0,0.12);
+  /* 手帳感：輕微旋轉 */
+  transform: rotate(-0.8deg);
+}
+.crisis-photo-item:nth-child(2) {
+  transform: rotate(0.6deg);
+}
+.crisis-photo-item img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+.crisis-photo-item figcaption {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  color: var(--ink-light);
+  text-align: center;
+  padding: 8px 10px 10px;
+  line-height: 1.5;
+  border-top: 1px dashed var(--paper-aged);
+  font-style: italic;
+}
+@media (max-width: 600px) {
+  .crisis-photos { flex-direction: column; }
+  .crisis-photo-item { transform: none !important; }
+}
+
+/* 謎團卡片 */
+.mystery-card {
+  background: linear-gradient(135deg, #f0f4f8, #e8eef4);
+  border: 1.5px solid var(--sky-light);
+  border-radius: var(--radius-lg);
+  padding: 24px 22px;
+  margin: 24px 0;
+  position: relative;
+}
+.mystery-card::after {
+  content: '❓';
+  position: absolute; top: -12px; right: 20px;
+  font-size: 1.4rem;
+  background: var(--paper-light);
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 28px;
+  text-align: center;
+}
+.mystery-title {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--sky-faded);
+  margin-bottom: 12px;
+}
+.mystery-timeline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+.mt-node {
+  text-align: center;
+  flex: 1;
+  min-width: 80px;
+}
+.mt-date {
+  font-family: var(--font-hand);
+  font-size: 0.82rem;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 4px;
+}
+.mt-event {
+  font-size: 0.8rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+}
+.mt-arrow {
+  color: var(--sky-light);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.mt-gap {
+  background: var(--paper-light);
+  border: 1px dashed var(--sky-light);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: var(--sky-faded);
+  text-align: center;
+}
+
+/* 公民任務清單 */
+.citizen-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px 0;
+}
+.ct-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background: var(--paper-mid);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--sky-faded);
+  font-size: 0.88rem;
+  color: var(--ink-light);
+  line-height: 1.7;
+}
+.ct-icon { flex-shrink: 0; font-size: 1.1rem; }
+.ct-item strong { color: var(--ink-mid); }
+
+/* 頁面導航 */
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--paper-aged);
+}
+.page-nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--ink-light);
+  transition: color 0.2s;
+}
+.page-nav a:hover { color: var(--moss-dark); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nb-nav">
+  <a href="index.html" class="nb-nav-brand">🦉 <span>育雛筆記</span></a>
+  <ul class="nb-nav-links">
+    <li><a href="index.html">首頁</a></li>
+    <li><a href="dadu.html">大肚國小篇</a></li>
+    <li><a href="xinfeng.html" class="active">新豐國中篇</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="nb-hero">
+  <div class="nb-hero-art"></div>
+  <div class="nb-hero-stamp">
+    <span class="stamp-owl">⚡</span>
+    韌性篇<br>生命奇蹟
+  </div>
+  <div class="nb-hero-content">
+    <div class="nb-hero-eyebrow">Chapter II · 新豐國中 · 2026 春季</div>
+    <h1 class="nb-hero-title">
+      12 天後的<em>驚嘆號</em><br>大考驗後的生命韌性劇本
+    </h1>
+    <p class="nb-hero-sub">
+      如果說大肚國小是順遂的教科書，那麼新豐國中，是一場關於生命殘酷、愛心無遠弗屆，以及科學謎團的震撼教育。
+    </p>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="nb-page">
+  <div class="nb-page-inner">
+
+    <!-- 開場 -->
+    <p class="nb-lead reveal">
+      2026 年的春天，新豐國中的巢箱裡同樣誕生了三隻小領角鴞。但<strong>大自然從不保證一帆風順</strong>。
+      這裡將發生一場關於殘酷、救援，與奇蹟的真實故事。
+    </p>
+
+    <!-- ── CHAPTER 1 ── -->
+    <div class="nb-chapter reveal">
+      <div class="nb-chapter-num">01</div>
+      <div class="nb-chapter-body">
+        <div class="nb-chapter-label">CHAPTER ONE</div>
+        <div class="nb-chapter-title">33% 的殘酷與美台聯線救援</div>
+      </div>
+    </div>
+    <div class="nb-chapter-line"></div>
+
+    <!-- 危機事件軸 -->
+    <div class="nb-crisis-timeline" id="crisis1">
+
+      <div class="nb-ci danger">
+        <div class="nb-ci-date">03.25</div>
+        <div class="nb-ci-text">
+          一隻幼雛不幸<strong>失蹤</strong>；另一隻雛鳥的右腳被發現<strong>先天無法彎曲</strong>——對極度依賴雙爪抓握獵物、站立攀爬的猛禽而言，這是致命缺陷
+        </div>
+      </div>
+
+      <div class="nb-ci danger">
+        <div class="nb-ci-date">04.10 中午</div>
+        <div class="nb-ci-text">
+          這隻令人揪心的小貓頭鷹，在<strong>練習展翅時不慎從高處墜地</strong>！校園內頓時警鈴大作，一場與時間賽跑的跨國救援悄然展開
+        </div>
+      </div>
+
+      <div class="nb-ci action">
+        <div class="nb-ci-date">救援行動</div>
+        <div class="nb-ci-text">
+          學校總務處與熱心教師緊急上網尋求野生動物救助單位；<strong>愛心無遠弗屆</strong>——校內教師遠在美國哈佛的親友，竟跨海線上幫忙聯繫台灣的救傷管道！
+        </div>
+      </div>
+
+      <div class="nb-ci hope">
+        <div class="nb-ci-date">後送救治</div>
+        <div class="nb-ci-text">
+          這隻小寶貝被順利通報，<strong>後送至六福村救護站</strong>進行醫療照護。人類的即時介入，為牠爭取到了活下去、甚至未來重返藍天的機會
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 危機現場照片 -->
+    <div class="crisis-photos reveal">
+      <figure class="crisis-photo-item">
+        <img src="owl-crisis-1.jpg" alt="墜地的小貓頭鷹雛鳥" loading="lazy">
+        <figcaption>04.10 墜地現場——那雙大眼睛，讓所有人心疼不已</figcaption>
+      </figure>
+      <figure class="crisis-photo-item">
+        <img src="owl-crisis-2.jpg" alt="等待救援的領角鴞雛鳥" loading="lazy">
+        <figcaption>靜靜等待人類伸出援手的小生命</figcaption>
+      </figure>
+    </div>
+
+    <!-- 美台救援連線圖 -->
+    <div class="rescue-map reveal">
+      <div class="rescue-title">🌏 跨海救援連線示意圖</div>
+      <div class="rescue-nodes">
+        <div class="rescue-node">
+          <span class="rn-icon">🏫</span>
+          <div class="rn-label">新豐國中<br>校方通報</div>
+        </div>
+        <div class="rescue-arrow">→</div>
+        <div class="rescue-node">
+          <span class="rn-icon">🇺🇸</span>
+          <div class="rn-label">哈佛親友<br>跨海線上協助</div>
+        </div>
+        <div class="rescue-arrow">→</div>
+        <div class="rescue-node">
+          <span class="rn-icon">🏥</span>
+          <div class="rn-label">台灣救傷單位<br>緊急聯繫</div>
+        </div>
+        <div class="rescue-arrow">→</div>
+        <div class="rescue-node">
+          <span class="rn-icon">🦁</span>
+          <div class="rn-label">六福村救護站<br>醫療照護</div>
+        </div>
+      </div>
+      <div class="rescue-note">愛心跨越太平洋，科技縮短了救援的距離。</div>
+    </div>
+
+    <!-- 33% 成功率 -->
+    <div class="rate-visual reveal">
+      <div class="rate-circle">
+        <span class="rate-num">33</span>
+        <span class="rate-unit">%</span>
+      </div>
+      <div class="rate-text">
+        野外育雛成功率因這場意外降至 <strong>33%</strong>（三隻中僅存一隻健在野外）。
+        但這個數字背後，是人類以最快速度回應生命呼喚的行動——另外那隻，正在救護站等待重返藍天的那一天。
+      </div>
+    </div>
+
+    <!-- 知識小卡：護鳥法律 -->
+    <div class="reveal">
+      <button class="nb-knowledge-trigger" onclick="toggleKnowledge(this)">
+        <span class="kt-icon">⚖️</span>
+        護鳥法律小須知：發現落巢幼鳥該怎麼做？
+        <span class="kt-arrow">▼</span>
+      </button>
+      <div class="nb-knowledge-panel">
+        <div class="nb-knowledge-inner" data-icon="⚖️">
+          <div class="nb-ki-title">台灣領角鴞屬保育類野生動物，<em>絕對不得私自飼養</em>！</div>
+          <p class="nb-ki-body">
+            若在校園或路邊發現落巢幼鳥，正確步驟是：<br>
+            <strong>① 拍照記錄</strong> → <strong>② 保持距離觀察</strong>是否有親鳥 → <strong>③ 撥打 1999</strong> 或通報專業野生動物救傷單位（如本案後送六福村救護站）。<br><br>
+            私自飼養野生動物可能觸犯《野生動物保育法》，輕則罰款，重則刑事責任。發現受傷的生命，最好的愛護方式是交給專業的手。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHAPTER 2 ── -->
+    <div class="nb-divider reveal">
+      <div class="nb-divider-line"></div>
+      <div class="nb-divider-icon">🌙</div>
+      <div class="nb-divider-line"></div>
+    </div>
+
+    <div class="nb-chapter reveal">
+      <div class="nb-chapter-num">02</div>
+      <div class="nb-chapter-body">
+        <div class="nb-chapter-label">CHAPTER TWO</div>
+        <div class="nb-chapter-title">鳥類推理劇！神祕的「第二窩」</div>
+      </div>
+    </div>
+    <div class="nb-chapter-line"></div>
+
+    <p class="nb-lead reveal">
+      大考驗過後，新豐國中的樹梢上出現了溫馨的一幕：<strong>4 月 16 日</strong>，母鳥帶著野外僅存的最後一隻小貓頭鷹，在綠葉間輕盈跳動，展現出生命的強大韌性。
+    </p>
+
+    <!-- 謎團事件軸 -->
+    <div class="nb-crisis-timeline" id="crisis2">
+
+      <div class="nb-ci hope">
+        <div class="nb-ci-date">04.16</div>
+        <div class="nb-ci-text">
+          母鳥帶著<strong>野外僅存的最後一隻小貓頭鷹</strong>，在樹梢綠葉間輕盈跳動，生命展現出驚人的韌性
+        </div>
+      </div>
+
+      <div class="nb-ci mystery">
+        <div class="nb-ci-date">04.28</div>
+        <div class="nb-ci-text">
+          監測人員點開巢箱畫面，不敢置信地揉了揉眼睛——巢箱裡，居然躺著一顆<strong>全新、剛產下的蛋！</strong>
+          這在台灣領角鴞的繁殖紀錄中，是極為罕見的案例
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 謎團解析卡 -->
+    <div class="mystery-card reveal">
+      <div class="mystery-title">🔬 科學推測：Double Brooding 第二次繁殖衝擊</div>
+
+      <div class="mystery-timeline">
+        <div class="mt-node">
+          <span class="mt-date">04.16</span>
+          <div class="mt-event">母鳥<br>帶大寶</div>
+        </div>
+        <div class="mt-arrow">→</div>
+        <div class="mt-gap">相隔 12 天</div>
+        <div class="mt-arrow">→</div>
+        <div class="mt-node">
+          <span class="mt-date">04.28</span>
+          <div class="mt-event">巢中<br>出現新蛋</div>
+        </div>
+      </div>
+
+      <p class="nb-body" style="margin-top:14px;">
+        從 4/16 幼鳥離巢至 4/28 母鳥產下新蛋，中間僅間隔 <strong>12 天</strong>，正好符合猛禽重新排卵所需的 <strong>10∼21 天生理循環</strong>。初步推測，由於新豐校園食物來源極度穩定充足，母鳥在體力恢復迅速的情況下，極可能主動發動了<strong>「第二次繁殖（Double Brooding）」</strong>，以最大化年度繁殖潛力。
+      </p>
+    </div>
+
+    <!-- 知識小卡：Double Brooding -->
+    <div class="reveal">
+      <button class="nb-knowledge-trigger" onclick="toggleKnowledge(this)">
+        <span class="kt-icon">🔍</span>
+        公民科學家任務：一起加入辦案！
+        <span class="kt-arrow">▼</span>
+      </button>
+      <div class="nb-knowledge-panel">
+        <div class="nb-knowledge-inner" data-icon="🔍">
+          <div class="nb-ki-title">母鳥是孤軍奮戰，還是新家庭的誕生？</div>
+          <p class="nb-ki-body">
+            因為領角鴞外觀極難辨識，目前<em>無法百分之百確認</em>這是否為同一隻母鳥。
+            透過 WNC 未來更新的「巢外攝影機」，你也可以一起加入觀察！
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 公民任務清單 -->
+    <div class="citizen-tasks reveal">
+      <div class="ct-item">
+        <span class="ct-icon">👂</span>
+        <div><strong>聽叫聲：</strong>觀察母鳥是否有特定的鳴叫頻率，不同個體的叫聲細節有微妙差異</div>
+      </div>
+      <div class="ct-item">
+        <span class="ct-icon">👀</span>
+        <div><strong>看分工：</strong>母鳥已開始孵第二窩，4/16 離巢的大寶還在附近——餵食大寶的重責大任全數落在公鳥肩上！發現大寶幾度現蹤來巢箱找鳥媽媽，這是非常有趣的家庭動態現象</div>
+      </div>
+      <div class="ct-item">
+        <span class="ct-icon">📷</span>
+        <div><strong>持續觀測：</strong>WNC 巢外攝影機即將上線，屆時更多行為細節將被記錄下來，等待公民科學家一起解謎</div>
+      </div>
+    </div>
+
+    <blockquote class="nb-quote reveal">
+      在墜地後的第 12 天，攝影機畫面裡再次出現了白色的蛋。大自然從不輕言放棄——母鴞用行動告訴我們什麼叫做韌性。
+    </blockquote>
+
+    <!-- WNC 計畫結語 -->
+    <div class="nb-divider reveal">
+      <div class="nb-divider-line"></div>
+      <div class="nb-divider-icon">🌱</div>
+      <div class="nb-divider-line"></div>
+    </div>
+
+    <div class="reveal" style="background: linear-gradient(135deg, #eef4ee, #e8f0e4); border:1.5px solid var(--moss-pale); border-radius: var(--radius-lg); padding: 28px 26px; margin: 8px 0 32px;">
+      <p style="font-family:var(--font-hand); font-size:1rem; color:var(--moss-dark); margin-bottom:10px;">🌳 關於本計畫</p>
+      <p class="nb-body">
+        本計畫由<strong>啟碁科技（WNC）機構處</strong>連續兩年自主發起永續行動，贊助新竹在地
+        <strong>11 所學校</strong>架設網路攝影機，總共設置 <strong>18 個生態巢箱</strong>，
+        透過跨界合作，將科技轉化為守護生物多樣性的公民科學力量。
+      </p>
+    </div>
+
+    <!-- 頁面底部導航 -->
+    <div class="page-nav">
+      <a href="dadu.html">← 上一篇：大肚國小的圓滿故事</a>
+      <a href="index.html">回到首頁 →</a>
+    </div>
+
+  </div><!-- /nb-page-inner -->
+</div><!-- /nb-page -->
+
+<!-- FOOTER -->
+<footer class="nb-footer">
+  <div class="nb-footer-logo">🦉 貓頭鷹的育雛筆記</div>
+  <p>WNC 跨界永續生態地圖 · 啟碁科技機構處 · 2024–2026</p>
+  <p style="margin-top:8px;font-size:0.78rem;opacity:0.5;">
+    本計畫所有觀測均在不干擾野生動物的原則下進行。領角鴞為保育類野生動物，請勿私自飼養。
+  </p>
+</footer>
+
+<script>
+/* ── 知識小卡開關 ── */
+function toggleKnowledge(btn) {
+  btn.classList.toggle('open');
+  const panel = btn.nextElementSibling;
+  panel.classList.toggle('open');
+}
+
+/* ── 捲動動畫（立即顯示視窗內元素） ── */
+function initReveal() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.nb-tl-item, .nb-ci, .reveal').forEach((el, i) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.style.transitionDelay = (i % 4) * 0.06 + 's';
+      el.classList.add('visible');
+    } else {
+      el.style.transitionDelay = (i % 4) * 0.07 + 's';
+      io.observe(el);
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', initReveal);
+</script>
+</body>
+</html>
