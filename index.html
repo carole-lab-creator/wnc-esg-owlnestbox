@@ -1,422 +1,468 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>貓頭鷹育雛筆記：WNC 跨界永續生態地圖</title>
-<link rel="stylesheet" href="notebook.css">
-<style>
-/* ── 首頁專屬樣式 ── */
-.home-hero {
-  min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 60% 30%, rgba(90,122,94,0.4) 0%, transparent 55%),
-    radial-gradient(ellipse at 15% 75%, rgba(160,82,45,0.18) 0%, transparent 45%),
-    linear-gradient(170deg, #1a2e1c 0%, #2d4a32 45%, #1e3520 100%);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-  padding: 60px 24px;
-}
-
-/* 手帳格線裝飾 */
-.home-hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(transparent, transparent 39px, rgba(168,196,160,0.06) 39px, rgba(168,196,160,0.06) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(168,196,160,0.04) 39px, rgba(168,196,160,0.04) 40px);
-  pointer-events: none;
-}
-
-.home-title-block {
-  text-align: center;
-  max-width: 720px;
-  position: relative; z-index: 2;
-}
-.home-kana {
-  font-family: var(--font-hand);
-  font-size: 1rem;
-  color: var(--moss-pale);
-  letter-spacing: 0.25em;
-  margin-bottom: 18px;
-  display: block;
-}
-.home-main-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  font-weight: 700;
-  color: var(--paper-light);
-  line-height: 1.25;
-  margin-bottom: 8px;
-}
-.home-main-title .em-green { color: var(--moss-pale); }
-.home-main-title .em-amber { color: var(--amber-light); }
-.home-subtitle {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1rem;
-  color: rgba(250,245,233,0.65);
-  margin-bottom: 32px;
-  line-height: 1.7;
-}
-.home-wnc-badge {
-  display: inline-block;
-  border: 1.5px solid rgba(196,144,58,0.5);
-  border-radius: 3px;
-  padding: 4px 14px;
-  font-family: var(--font-hand);
-  font-size: 0.85rem;
-  color: rgba(224,176,80,0.8);
-  letter-spacing: 0.12em;
-  margin-bottom: 48px;
-}
-
-/* 兩隻貓頭鷹裝飾 */
-.home-owl-deco {
-  font-size: 4rem;
-  margin-bottom: 24px;
-  display: block;
-  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
-  animation: owlBreathe 4s ease-in-out infinite;
-}
-@keyframes owlBreathe {
-  0%,100%{ transform: translateY(0); }
-  50%    { transform: translateY(-6px); }
-}
-
-/* 進入章節按鈕群 */
-.home-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  max-width: 660px;
-  width: 100%;
-  position: relative; z-index: 2;
-}
-.home-card {
-  background: rgba(250,245,233,0.08);
-  border: 1.5px solid rgba(250,245,233,0.18);
-  border-radius: 12px;
-  padding: 28px 24px;
-  text-decoration: none;
-  transition: all 0.3s;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  position: relative;
-  overflow: hidden;
-}
-.home-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 3px;
-  transition: opacity 0.3s;
-}
-.home-card.green::before { background: linear-gradient(to right, var(--moss-mid), var(--moss-pale)); }
-.home-card.amber::before { background: linear-gradient(to right, var(--rust), var(--amber-light)); }
-.home-card:hover {
-  background: rgba(250,245,233,0.14);
-  border-color: rgba(250,245,233,0.32);
-  transform: translateY(-4px);
-}
-.hc-emoji { font-size: 2rem; display: block; margin-bottom: 12px; }
-.hc-chapter {
-  font-family: var(--font-hand);
-  font-size: 0.8rem;
-  color: var(--moss-pale);
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
-}
-.hc-school {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--paper-light);
-  margin-bottom: 6px;
-}
-.hc-desc {
-  font-size: 0.82rem;
-  color: rgba(250,245,233,0.6);
-  line-height: 1.65;
-}
-.hc-tag {
-  display: inline-block;
-  margin-top: 12px;
-  border: 1px solid rgba(250,245,233,0.3);
-  border-radius: 20px;
-  padding: 3px 12px;
-  font-family: var(--font-hand);
-  font-size: 0.78rem;
-  color: rgba(250,245,233,0.7);
-}
-
-/* 底部捲動提示 */
-.home-scroll-hint {
-  position: absolute;
-  bottom: 32px; left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-hand);
-  font-size: 0.82rem;
-  color: rgba(250,245,233,0.4);
-  letter-spacing: 0.1em;
-  text-align: center;
-  animation: hintBob 2.5s ease-in-out infinite;
-}
-@keyframes hintBob {
-  0%,100%{ transform: translateX(-50%) translateY(0); }
-  50%    { transform: translateX(-50%) translateY(5px); }
-}
-
-/* ── About Section ── */
-.home-about {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 64px 48px 80px;
-}
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: start;
-  margin-top: 32px;
-}
-.about-text-block .nb-lead { margin-bottom: 20px; }
-.about-stats {
-  background: var(--paper-mid);
-  border: 1px solid var(--paper-aged);
-  border-radius: var(--radius-lg);
-  padding: 28px 24px;
-  box-shadow: var(--shadow-paper);
-}
-.about-stats h4 {
-  font-family: var(--font-hand);
-  font-size: 1rem;
-  color: var(--moss-mid);
-  margin-bottom: 20px;
-  letter-spacing: 0.05em;
-}
-.stat-row {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 18px;
-  padding-bottom: 18px;
-  border-bottom: 1px dashed var(--paper-aged);
-}
-.stat-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.stat-num {
-  font-family: var(--font-hand);
-  font-size: 2.2rem;
-  color: var(--moss-dark);
-  line-height: 1;
-  flex-shrink: 0;
-}
-.stat-unit {
-  font-family: var(--font-serif);
-  font-size: 0.8rem;
-  color: var(--moss-light);
-}
-.stat-label {
-  font-size: 0.85rem;
-  color: var(--ink-light);
-  line-height: 1.55;
-}
-
-.school-list {
-  margin: 20px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.school-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px;
-  background: var(--paper-mid);
-  border-radius: var(--radius-md);
-  border-left: 3px solid var(--moss-mid);
-  text-decoration: none;
-  transition: all 0.22s;
-}
-.school-item:hover {
-  background: var(--paper-deep);
-  transform: translateX(4px);
-}
-.si-emoji { font-size: 1.3rem; flex-shrink: 0; }
-.si-body { flex: 1; }
-.si-name {
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--ink-mid);
-  display: block;
-}
-.si-tag {
-  font-family: var(--font-hand);
-  font-size: 0.78rem;
-  color: var(--moss-light);
-}
-.si-arrow { color: var(--ink-faint); font-size: 0.9rem; }
-
-@media (max-width: 768px) {
-  .home-cards { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; gap: 28px; }
-  .home-about { padding: 48px 20px 60px; }
-}
-</style>
+<title>貓頭鷹的育雛筆記 · Owl Nesting Notes｜WNC 跨界永續生態計畫</title>
+<meta name="description" content="連續兩年透過鏡頭見證領角鴞成功繁殖：橫山大肚國小與新豐國中的育雛故事，以及 WNC 從巢箱到公民科學的永續影響力。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%A6%89%3C/text%3E%3C/svg%3E">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nb-nav">
-  <a href="index.html" class="nb-nav-brand">🦉 <span>育雛筆記</span></a>
-  <ul class="nb-nav-links">
-    <li><a href="#about">關於計畫</a></li>
-    <li><a href="dadu.html">大肚國小篇</a></li>
-    <li><a href="xinfeng.html">新豐國中篇</a></li>
-  </ul>
-  <a href="index-en.html" class="lang-switch" title="Switch to English">
-    <span class="leaf-icon">🌿</span>EN
+<!-- ══════════ 捲動進度 ══════════ -->
+<div class="scroll-progress"><span id="progressBar"></span></div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="site-header" id="siteHeader">
+  <a class="brand" href="#top">
+    <span class="brand-text">
+      <strong data-i18n="brand.title">貓頭鷹的育雛筆記</strong>
+      <small data-i18n="brand.sub">WNC 跨界永續生態計畫</small>
+    </span>
   </a>
-</nav>
 
-<!-- HERO -->
-<section class="home-hero">
-  <div class="home-title-block">
-    <span class="home-kana">WNC 跨界永續生態地圖 · 2024–2026</span>
-    <span class="home-owl-deco">🦉</span>
-    <h1 class="home-main-title">
-      貓頭鷹的<span class="em-green">育雛筆記</span>
+  <nav class="site-nav" id="siteNav">
+    <a href="#chapter1" data-i18n="nav.ch1">故事起源</a>
+    <a href="#chapter2" data-i18n="nav.ch2">橫山大肚國小</a>
+    <a href="#chapter3" data-i18n="nav.ch3">新豐國中</a>
+    <a href="#chapter4" data-i18n="nav.ch4">生態願景</a>
+  </nav>
+
+  <div class="header-tools">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-setlang="zh" class="is-active">中</button>
+      <button type="button" data-setlang="en">EN</button>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-photo" style="background-image:url('assets/dadu-install.jpg')"></div>
+    <div class="hero-moon"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-stars"></div>
+  </div>
+
+  <div class="hero-inner">
+    <span class="hero-eyebrow" data-i18n="hero.eyebrow">2024 – 2026 · 新竹 · 領角鴞觀察紀錄</span>
+    <h1 class="hero-title">
+      <span class="ht-zh" data-i18n="hero.title">貓頭鷹的<em>育雛筆記</em></span>
+      <span class="ht-en">Owl Nesting Notes</span>
     </h1>
-    <p class="home-subtitle">
-      連續兩年貓頭鷹成功育雛的校園，將生態知識揉進充滿溫度的故事裡。
-    </p>
-    <div class="home-wnc-badge">啟碁科技 WNC · 機構處 永續生態計畫</div>
+    <p class="hero-sub" data-i18n="hero.sub">連續兩年透過鏡頭見證成功的繁殖，<br>將生態知識揉進充滿溫度的故事裡。</p>
 
-    <div class="home-cards">
-      <a href="dadu.html" class="home-card green">
-        <span class="hc-emoji">🌿</span>
-        <div class="hc-chapter">Chapter I · 順遂篇</div>
-        <div class="hc-school">橫山大肚國小</div>
-        <div class="hc-desc">火焰木上的神仙眷侶，三顆蛋的約定，大自然最完美的育雛教科書</div>
-        <span class="hc-tag">連續兩年 · 圓滿離巢 →</span>
-      </a>
-      <a href="xinfeng.html" class="home-card amber">
-        <span class="hc-emoji">⚡</span>
-        <div class="hc-chapter">Chapter II · 韌性篇</div>
-        <div class="hc-school">新豐國中</div>
-        <div class="hc-desc">33% 的殘酷、美台跨海救援，以及 12 天後震驚所有人的謎團</div>
-        <span class="hc-tag">生命韌性 · 第二窩奇蹟 →</span>
-      </a>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#chapter2"><span data-i18n="hero.cta1">探索大肚國小故事</span><i>→</i></a>
+      <a class="btn" href="#chapter3"><span data-i18n="hero.cta2">探索新豐國中故事</span><i>→</i></a>
+      <a class="btn btn-ghost" href="#films"><span data-i18n="hero.cta3">觀看生態紀錄</span><i>▶</i></a>
     </div>
+
+    <ul class="hero-meta">
+      <li><b>18</b><span data-i18n="hero.m1">座巢箱</span></li>
+      <li><b>11</b><span data-i18n="hero.m2">校監測</span></li>
+      <li><b>7</b><span data-i18n="hero.m3">處現蹤</span></li>
+      <li><b>2</b><span data-i18n="hero.m4">年連續育雛</span></li>
+    </ul>
   </div>
 
-  <div class="home-scroll-hint">↓ 了解更多</div>
+  <a class="scroll-cue" href="#chapter1"><span data-i18n="hero.scroll">往下翻頁</span><i></i></a>
+  <div class="edge-torn" aria-hidden="true"></div>
 </section>
 
-<!-- ABOUT -->
-<section class="home-about" id="about">
-  <div class="nb-chapter">
-    <div class="nb-chapter-num">ℹ</div>
-    <div class="nb-chapter-body">
-      <div class="nb-chapter-label">ABOUT THIS PROJECT</div>
-      <div class="nb-chapter-title">關於這本生態筆記</div>
+<main>
+
+<!-- ══════════ CHAPTER 1 ══════════ -->
+<section class="chapter paper" id="chapter1">
+  <div class="wrap">
+    <header class="ch-head reveal">
+      <span class="ch-num">Chapter 01</span>
+      <span class="ch-eyebrow" data-i18n="ch1.eyebrow">故事起源 · The Spark of Action</span>
+      <h2 data-i18n="ch1.title">從一個巢箱開始，<br>串聯人與自然的溫度</h2>
+    </header>
+
+    <div class="ch-body">
+      <div class="ch-text">
+        <p class="lede reveal" data-i18n="ch1.p1">都市擴張與林地破碎化，導致天然樹洞大量減少，衝擊了依賴樹洞繁衍的猛禽——<strong>領角鴞</strong>。</p>
+        <p class="reveal" data-i18n="ch1.p2">2023 年內部調查顯示，有 <strong>57% 的同仁</strong> 對環境保護活動充滿熱情。為了將永續關心轉化為實質行動，WNC 自 2024 年起發起「為貓頭鷹打造家園」專案。</p>
+        <p class="reveal" data-i18n="ch1.p3">我們攜手「竹風樂境」與攀樹師彭康明，透過手作工作坊，親手為貓頭鷹打造安全無虞的替代棲地。</p>
+      </div>
+
+      <figure class="ch-photo tilt-r reveal">
+        <img src="assets/workshop-group.jpg" alt="巢箱手作工作坊大合照" loading="lazy">
+        <figcaption data-i18n="ch1.cap1">2024.09.21 · 巢箱手作工作坊，同仁與眷屬跨世代參與</figcaption>
+      </figure>
     </div>
-  </div>
-  <div class="nb-chapter-line"></div>
 
-  <div class="about-grid">
-    <div class="about-text-block">
-      <p class="nb-lead">
-        本計畫由<strong>啟碁科技（WNC）機構處</strong>連續兩年自主發起永續行動，
-        贊助新竹在地 11 所學校架設網路攝影機，總共設置 <strong>18 個生態巢箱</strong>，
-        透過跨界合作，將科技轉化為守護生物多樣性的公民科學力量。
-      </p>
-      <p class="nb-body">
-        我們選用<strong>橫山大肚國小</strong>與<strong>新豐國中</strong>這兩所連續兩年成功育雛的學校，
-        以田野觀察的方式記錄下領角鴞從入住、產蛋、孵化到離巢的完整生命歷程。
-        每一格時間軸、每一張成長圖卡，都是真實發生在校園裡的故事。
-      </p>
-      <p class="nb-body">
-        領角鴞是台灣淺山地區的指標物種。
-        牠們在這裡安家，告訴我們：<strong>科技與生態可以共存，企業的永續從員工的心出發。</strong>
-      </p>
-
-      <!-- 影片區塊 -->
-  <div class="reveal" style="margin: 8px 0 36px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
-    <a href="https://www.youtube.com/watch?v=sUJP331eChg" target="_blank" rel="noopener" class="nb-video-btn">
-      <span class="vb-icon">▶</span>
-      WNC 巢箱紀錄影片
-      <span class="vb-sub">YouTube →</span>
-    </a>
-    <a href="https://youtu.be/trzWwspWIsg?si=S2WWwS-HpjGJwCNB" target="_blank" rel="noopener" class="nb-video-btn">
-      <span class="vb-icon">▶</span>
-      新聞報導－企業捐巢箱助復育領角鴞
-      <span class="vb-sub">YouTube →</span>
-    </a>
-  </div>
-
-  <div class="school-list">
-        <a href="dadu.html" class="school-item">
-          <span class="si-emoji">🌳</span>
-          <div class="si-body">
-            <span class="si-name">橫山大肚國小篇</span>
-            <span class="si-tag">🌿 順遂篇 · 三隻幼鴞成功離巢</span>
-          </div>
-          <span class="si-arrow">→</span>
-        </a>
-        <a href="xinfeng.html" class="school-item" style="border-left-color: var(--rust);">
-          <span class="si-emoji">🌙</span>
-          <div class="si-body">
-            <span class="si-name">新豐國中篇</span>
-            <span class="si-tag">⚡ 韌性篇 · 美台救援 × 第二窩奇蹟</span>
-          </div>
-          <span class="si-arrow">→</span>
-        </a>
+    <div class="stat-grid">
+      <div class="stat reveal">
+        <b class="count" data-target="108">108</b><span class="unit" data-i18n="ch1.s1u">人</span>
+        <p data-i18n="ch1.s1">響應工作坊，同仁與眷屬跨世代參與</p>
+      </div>
+      <div class="stat reveal">
+        <b class="count" data-target="18">18</b><span class="unit" data-i18n="ch1.s2u">座</span>
+        <p data-i18n="ch1.s2">巢箱掛置於新竹各地校園與生態場域</p>
+      </div>
+      <div class="stat reveal">
+        <b class="count" data-target="11">11</b><span class="unit" data-i18n="ch1.s3u">所</span>
+        <p data-i18n="ch1.s3">學校導入巢內 AI / Tapo 智慧網路攝影機監測</p>
+      </div>
+      <div class="stat reveal">
+        <b class="count" data-target="7">7</b><span class="unit" data-i18n="ch1.s4u">處</span>
+        <p data-i18n="ch1.s4">成功拍攝到領角鴞或黃嘴角鴞現蹤</p>
       </div>
     </div>
 
-    <div class="about-stats">
-      <h4>🦉 計畫數字</h4>
-      <div class="stat-row">
-        <span class="stat-num">11</span>
-        <span class="stat-unit">所</span>
-        <span class="stat-label">新竹在地學校<br>架設網路攝影機</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-num">18</span>
-        <span class="stat-unit">個</span>
-        <span class="stat-label">生態巢箱<br>由員工親手製作，委託竹風樂境燒炭窩安裝</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-num">2</span>
-        <span class="stat-unit">年</span>
-        <span class="stat-label">連續自主發起<br>永續生態行動</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-num">∞</span>
-        <span class="stat-unit"></span>
-        <span class="stat-label">對生命故事的守護<br>從不設期限</span>
-      </div>
+    <div class="photo-row">
+      <figure class="reveal"><img src="assets/nest-tree.jpg" alt="巢箱掛上樹" loading="lazy"><figcaption data-i18n="ch1.cap2">攀樹師將巢箱固定於樹幹高處</figcaption></figure>
+      <figure class="reveal"><img src="assets/nest-camera.jpg" alt="巢箱內攝影機" loading="lazy"><figcaption data-i18n="ch1.cap3">巢內智慧攝影機，24 小時不打擾的觀察</figcaption></figure>
+      <figure class="reveal"><img src="assets/donation-group.jpg" alt="巢箱捐贈合影" loading="lazy"><figcaption data-i18n="ch1.cap4">2024.09.28 · 巢箱捐贈校園，計畫正式啟航</figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="nb-footer">
-  <div class="nb-footer-logo">🦉 貓頭鷹育雛筆記</div>
-  <p>WNC 跨界永續生態地圖 · 啟碁科技機構處 · 2024–2026</p>
-  <p style="margin-top:8px; font-size:0.78rem; opacity:0.5;">
-    本計畫所有觀測均在不干擾野生動物的原則下進行。領角鴞為保育類野生動物，請勿私自飼養。
-  </p>
+<!-- ══════════ CHAPTER 2 · 橫山大肚國小 ══════════ -->
+<section class="chapter paper paper-2" id="chapter2">
+  <div class="wrap">
+    <header class="ch-head reveal">
+      <span class="ch-num">Chapter 02</span>
+      <span class="ch-eyebrow" data-i18n="ch2.eyebrow">橫山大肚國小 · 2024–2025 · 順遂篇</span>
+      <h2 data-i18n="ch2.title">火焰木上的神仙眷侶——<br>大自然最完美的育雛教科書</h2>
+    </header>
+
+    <div class="ch-body">
+      <div class="ch-text">
+        <p class="lede reveal" data-i18n="ch2.lead">2024 年 10 月 22 日的傍晚，新竹橫山大肚國小的操場旁，一個人工巢箱被牢牢固定在火焰木高處。所有人都以為，野鳥要適應人類的造物，少說也得花上幾個月。沒想到，<strong>當天半夜，第一隻領角鴞便踏著無聲的翅膀，悄然降落在巢箱前</strong>——牠歪著頭，好奇地探索這個新家，就此揭開這場長達兩年的「微光連載」。</p>
+        <p class="reveal" data-i18n="ch2.lead2">選用連續兩年成功育雛的校園，這裡是屬於領角鴞最溫柔的故事開端：公鳥在外捕食送禮，母鳥在巢內孵卵守護，一場堪稱模範的家庭分工，就在鏡頭下一格一格展開。</p>
+      </div>
+      <figure class="ch-photo tilt-l reveal">
+        <img src="assets/dadu-visit.jpg" alt="貓頭鷹前來探巢的紅外線畫面" loading="lazy">
+        <figcaption data-i18n="ch2.cap1">掛箱當晚，鏡頭捕捉到領角鴞探巢的瞬間</figcaption>
+      </figure>
+    </div>
+
+    <div class="sub-head reveal">
+      <span class="sub-num">01</span>
+      <div class="sub-body">
+        <span class="sub-label" data-i18n="ch2.s1label">PART ONE</span>
+        <h3 data-i18n="ch2.s1title">領角鴞情緣與三顆蛋的約定</h3>
+      </div>
+    </div>
+
+    <ol class="timeline">
+      <li class="reveal"><span class="tl-date" data-i18n="ch2.t1date">2024.10.22 · 入夜</span>
+        <p data-i18n="ch2.t1text">巢箱掛上當晚，貓頭鷹便前來探訪——大自然給了人類一個不可思議的驚喜。</p></li>
+      <li class="reveal"><span class="tl-date" data-i18n="ch2.t2date">2025.03.07</span>
+        <p data-i18n="ch2.t2text"><strong>正式入住：</strong>公鳥和母鳥先後進入巢箱，開始觀察到公鳥捕捉食物餵食母鳥，模範家庭的分工就此展開。</p></li>
+      <li class="reveal"><span class="tl-date" data-i18n="ch2.t3date">2025.03.14 起</span>
+        <p data-i18n="ch2.t3text"><strong>生命的精準時鐘：</strong>母鳥產下第一顆蛋；之後每隔 2∼3 天再添一顆，共產下 <strong>3 顆白蛋</strong>，細心塞在肚皮下用體溫守護。</p></li>
+      <li class="reveal is-final"><span class="tl-date" data-i18n="ch2.t4date">2025.04.17</span>
+        <p data-i18n="ch2.t4text"><strong>破殼聲傳來：</strong>第一隻小貓頭鷹誕生！母鳥優雅地吃掉蛋殼、溫柔地幫雛鳥理毛，其餘兩隻在 1∼2 天內陸續孵化。</p></li>
+    </ol>
+
+    <article class="know-card kc-science solo reveal">
+      <span class="kc-icon">🌿</span>
+      <h4 data-i18n="ch2.k1t">人工巢箱（Nest Box）是一種「生態補償」</h4>
+      <p data-i18n="ch2.k1d">領角鴞是淺山地區的<em>指標物種</em>，但因為都市擴張與林地破碎化，<strong>大樹洞越來越少</strong>。人工巢箱不是干擾，而是一種寶貴的「生態補償」——為找不到樹洞成家的牠們，爭取一條生命的生路。WNC 由同仁親手製作、安裝的巢箱，正是這條生路最實在的一塊磚。</p>
+    </article>
+
+    <div class="sub-head reveal">
+      <span class="sub-num">02</span>
+      <div class="sub-body">
+        <span class="sub-label" data-i18n="ch2.s2label">PART TWO</span>
+        <h3 data-i18n="ch2.s2title">從棉花球到森林獵手</h3>
+      </div>
+    </div>
+
+    <div class="growth-cards">
+      <article class="growth-card reveal">
+        <span class="gc-emoji">🥚</span>
+        <div class="gc-phase" data-i18n="ch2.g1p">PHASE 1 · 孵化期</div>
+        <div class="gc-date" data-i18n="ch2.g1d">4/17 破殼</div>
+        <h4 class="gc-title" data-i18n="ch2.g1t">會動的白色棉花球</h4>
+        <p class="gc-desc" data-i18n="ch2.g1x">剛孵化，全身覆滿白色絨毛，三隻小寶貝擠在一起，像極了「會動的棉花球」。</p>
+      </article>
+      <article class="growth-card reveal">
+        <span class="gc-emoji">🐦</span>
+        <div class="gc-phase" data-i18n="ch2.g2p">PHASE 2 · 成長期</div>
+        <div class="gc-date" data-i18n="ch2.g2d">出生 10 天後</div>
+        <h4 class="gc-title" data-i18n="ch2.g2t">中型灰色毛球</h4>
+        <p class="gc-desc" data-i18n="ch2.g2x">毛色從純白轉為深灰，體型快速增大，眼睛也越來越圓、越來越亮。</p>
+      </article>
+      <article class="growth-card reveal">
+        <span class="gc-emoji">🦅</span>
+        <div class="gc-phase" data-i18n="ch2.g3p">PHASE 3 · 離巢期</div>
+        <div class="gc-date" data-i18n="ch2.g3d">5/8∼5/12</div>
+        <h4 class="gc-title" data-i18n="ch2.g3t">森林夜行俠誕生</h4>
+        <p class="gc-desc" data-i18n="ch2.g3x">探出頭、抓樹枝、練展翅，5/12 傍晚 7 時，三隻小貓頭鷹陸續躍向夜空。</p>
+      </article>
+    </div>
+
+    <p class="feed-intro reveal" data-i18n="ch2.feedIntro">隨後的一個月，是生命暴風抽高的高速公路。領角鴞爸爸奮力尋找各種食物餵食家人：</p>
+    <div class="chips reveal">
+      <span class="chip" data-i18n="ch2.f1">🐸 青蛙</span>
+      <span class="chip" data-i18n="ch2.f2">🐭 老鼠</span>
+      <span class="chip" data-i18n="ch2.f3">🦎 蜥蜴</span>
+      <span class="chip" data-i18n="ch2.f4">🦎 壁虎</span>
+      <span class="chip" data-i18n="ch2.f5">🦇 蝙蝠</span>
+      <span class="chip" data-i18n="ch2.f6">🦗 竹節蟲</span>
+      <span class="chip" data-i18n="ch2.f7">🦗 螽斯</span>
+    </div>
+
+    <div class="record-banner reveal">
+      <span class="rb-icon">🏆</span>
+      <div class="rb-text">
+        <strong data-i18n="ch2.recT">最高紀錄：一個晚上來回 50 趟餵食！</strong>
+        <p data-i18n="ch2.recD">領角鴞爸爸的外送神功，讓三隻小貓頭鷹在短短一個月內迅速成長。</p>
+      </div>
+    </div>
+
+    <ol class="timeline">
+      <li class="reveal"><span class="tl-date" data-i18n="ch2.u1date">2025.05.08</span>
+        <p data-i18n="ch2.u1text">小貓頭鷹開始好奇地<strong>探出巢箱</strong>，用爪子抓取樹枝，探索巢箱外的世界。</p></li>
+      <li class="reveal"><span class="tl-date" data-i18n="ch2.u2date">2025.05.10</span>
+        <p data-i18n="ch2.u2text">開始<strong>練習展翅學飛</strong>，三隻小傢伙擠在巢箱門口，興奮地探頭看大肚國小的孩子們在操場上奔跑。</p></li>
+      <li class="reveal is-final"><span class="tl-date" data-i18n="ch2.u3date">2025.05.12 · 傍晚 7 時</span>
+        <p data-i18n="ch2.u3text">夕陽餘暉剛落，三隻小貓頭鷹拍打著逐漸豐滿的羽翼，<strong>陸續躍向夜空</strong>，完成了牠們生命中的首次飛行。育雛圓滿成功 🎉</p></li>
+    </ol>
+
+    <blockquote class="quote reveal" data-i18n="ch2.quote">大肚國小的巢箱空了，但新竹的黑夜裡，多了三隻守護森林的夜行俠。</blockquote>
+
+    <div class="know-block">
+      <h3 class="block-title" data-i18n="ch2.kcTitle">生態知識卡</h3>
+      <div class="know-grid">
+        <article class="know-card reveal">
+          <span class="kc-icon">🪶</span>
+          <h4 data-i18n="ch2.kc1t">親鳥分工</h4>
+          <p data-i18n="ch2.kc1d">繁殖季期間，母鳥負責孵蛋與守護，公鳥負責獵捕老鼠、蜥蜴與大型昆蟲餵養家庭。</p>
+        </article>
+        <article class="know-card reveal">
+          <span class="kc-icon">🥚</span>
+          <h4 data-i18n="ch2.kc2t">育雛時序</h4>
+          <p data-i18n="ch2.kc2d">孵化期約需一個月，孵化後約一個月幼鳥即可獨立離巢。</p>
+        </article>
+      </div>
+    </div>
+
+    <a class="btn-film reveal" href="https://www.youtube.com/watch?v=sUJP331eChg" target="_blank" rel="noopener">
+      <span class="vb-icon">▶</span><b data-i18n="ch2.filmBtn">WNC 巢箱紀錄影片</b><small>YouTube ↗</small>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════ CHAPTER 3 · 新豐國中 ══════════ -->
+<section class="chapter paper paper-3" id="chapter3">
+  <div class="wrap">
+    <header class="ch-head reveal">
+      <span class="ch-num">Chapter 03</span>
+      <span class="ch-eyebrow" data-i18n="ch3.eyebrow">新豐國中 · 2026 春季 · 韌性篇</span>
+      <h2 data-i18n="ch3.title">12 天後的驚嘆號——<br>大考驗後的生命韌性劇本</h2>
+    </header>
+
+    <div class="ch-body">
+      <div class="ch-text">
+        <p class="lede reveal" data-i18n="ch3.lead">2026 年的春天，新豐國中的巢箱裡同樣誕生了三隻小領角鴞。但<strong>大自然從不保證一帆風順</strong>。這裡發生了一場關於殘酷、救援，與奇蹟的真實故事。</p>
+        <p class="reveal" data-i18n="ch3.lead2">如果說大肚國小是順遂的教科書，那麼新豐國中，就是一場關於生命殘酷、愛心無遠弗屆，以及科學謎團的震撼教育。</p>
+      </div>
+      <figure class="ch-photo tilt-r reveal">
+        <img src="assets/donation-xinfeng.jpg" alt="巢箱捐贈新豐國中" loading="lazy">
+        <figcaption data-i18n="ch3.cap0">2024.09.21 · 巢箱捐贈新豐國中，故事的起點</figcaption>
+      </figure>
+    </div>
+
+    <div class="sub-head reveal">
+      <span class="sub-num">01</span>
+      <div class="sub-body">
+        <span class="sub-label" data-i18n="ch3.s1label">PART ONE</span>
+        <h3 data-i18n="ch3.s1title">33% 的殘酷與美台聯線救援</h3>
+      </div>
+    </div>
+
+    <div class="crisis-list">
+      <div class="ci danger reveal">
+        <span class="ci-date" data-i18n="ch3.c1date">03.25</span>
+        <p data-i18n="ch3.c1text">一隻幼雛不幸<strong>失蹤</strong>；另一隻雛鳥的右腳被發現<strong>先天無法彎曲</strong>——對極度依賴雙爪抓握獵物、站立攀爬的猛禽而言，這是致命缺陷。</p>
+      </div>
+      <div class="ci danger reveal">
+        <span class="ci-date" data-i18n="ch3.c2date">04.10 中午</span>
+        <p data-i18n="ch3.c2text">這隻令人揪心的小貓頭鷹，在<strong>練習展翅時不慎從高處墜地</strong>！校園內頓時警鈴大作，一場與時間賽跑的跨國救援悄然展開。</p>
+      </div>
+      <div class="ci action reveal">
+        <span class="ci-date" data-i18n="ch3.c3date">救援行動</span>
+        <p data-i18n="ch3.c3text">學校總務處與熱心教師緊急上網尋求野生動物救助單位；<strong>愛心無遠弗屆</strong>——校內教師遠在美國哈佛的親友，竟跨海線上幫忙聯繫台灣的救傷管道！</p>
+      </div>
+      <div class="ci hope reveal">
+        <span class="ci-date" data-i18n="ch3.c4date">後送救治</span>
+        <p data-i18n="ch3.c4text">這隻小寶貝被順利通報，<strong>後送至六福村救護站</strong>進行醫療照護。人類的即時介入，為牠爭取到了活下去、甚至未來重返藍天的機會。</p>
+      </div>
+    </div>
+
+    <div class="photo-row two">
+      <figure class="reveal"><img src="assets/xinfeng-owlet-1.jpg" alt="墜地的小貓頭鷹雛鳥" loading="lazy"><figcaption data-i18n="ch3.cap1">04.10 墜地現場——那雙大眼睛，讓所有人心疼不已</figcaption></figure>
+      <figure class="reveal"><img src="assets/xinfeng-owlet-2.jpg" alt="等待救援的領角鴞雛鳥" loading="lazy"><figcaption data-i18n="ch3.cap2">靜靜等待人類伸出援手的小生命</figcaption></figure>
+    </div>
+
+    <div class="rescue-flow reveal">
+      <div class="rf-title"><span>🌏</span><span data-i18n="ch3.rmTitle">跨海救援連線示意圖</span></div>
+      <div class="rf-nodes">
+        <div class="rf-node"><span class="rf-icon">🏫</span><p data-i18n="ch3.rm1">新豐國中<br>校方通報</p></div>
+        <span class="rf-arrow">→</span>
+        <div class="rf-node"><span class="rf-icon">🌎</span><p data-i18n="ch3.rm2">哈佛親友<br>跨海線上協助</p></div>
+        <span class="rf-arrow">→</span>
+        <div class="rf-node"><span class="rf-icon">🏥</span><p data-i18n="ch3.rm3">台灣救傷單位<br>緊急聯繫</p></div>
+        <span class="rf-arrow">→</span>
+        <div class="rf-node"><span class="rf-icon">🦁</span><p data-i18n="ch3.rm4">六福村救護站<br>醫療照護</p></div>
+      </div>
+      <p class="rf-note" data-i18n="ch3.rmNote">愛心跨越太平洋，科技縮短了救援的距離。</p>
+    </div>
+
+    <div class="rate-visual reveal">
+      <div class="rate-circle"><span class="rate-inner"><b>33</b><i>%</i></span></div>
+      <p class="rate-text" data-i18n="ch3.rateText">野外育雛成功率因這場意外降至 <strong>33%</strong>（三隻中僅存一隻健在野外）。但這個數字背後，是人類以最快速度回應生命呼喚的行動——另外那隻，正在救護站等待重返藍天的那一天。</p>
+    </div>
+
+    <article class="know-card kc-warn solo reveal">
+      <span class="kc-icon">⚖️</span>
+      <h4 data-i18n="ch3.lawT">護鳥法律小須知：發現落巢幼鳥該怎麼做？</h4>
+      <p data-i18n="ch3.lawD">台灣領角鴞屬保育類野生動物，<strong>絕對不得私自飼養</strong>。若在校園或路邊發現落巢幼鳥，正確步驟是：<strong>① 拍照記錄</strong> → <strong>② 保持距離觀察</strong>是否有親鳥 → <strong>③ 撥打 1999</strong> 或通報專業野生動物救傷單位（如本案後送六福村救護站）。私自飼養野生動物可能觸犯《野生動物保育法》，輕則罰款，重則負刑事責任。發現受傷的生命，最好的愛護方式是交給專業的手。</p>
+    </article>
+
+    <div class="sub-head reveal">
+      <span class="sub-num">02</span>
+      <div class="sub-body">
+        <span class="sub-label" data-i18n="ch3.s2label">PART TWO</span>
+        <h3 data-i18n="ch3.s2title">鳥類推理劇！神祕的「第二窩」</h3>
+      </div>
+    </div>
+
+    <p class="lede reveal" data-i18n="ch3.lead3">大考驗過後，新豐國中的樹梢上出現了溫馨的一幕：<strong>4 月 16 日</strong>，母鳥帶著野外僅存的最後一隻小貓頭鷹，在綠葉間輕盈跳動，展現出生命的強大韌性。</p>
+
+    <div class="crisis-list">
+      <div class="ci hope reveal">
+        <span class="ci-date" data-i18n="ch3.d1date">04.16</span>
+        <p data-i18n="ch3.d1text">母鳥帶著<strong>野外僅存的最後一隻小貓頭鷹</strong>，在樹梢綠葉間輕盈跳動，生命展現出驚人的韌性。</p>
+      </div>
+      <div class="ci mystery reveal">
+        <span class="ci-date" data-i18n="ch3.d2date">04.28</span>
+        <p data-i18n="ch3.d2text">監測人員點開巢箱畫面，不敢置信地揉了揉眼睛——巢箱裡，居然躺著一顆<strong>全新、剛產下的蛋！</strong>這在台灣領角鴞的繁殖紀錄中，是極為罕見的案例。</p>
+      </div>
+    </div>
+
+    <div class="mystery-card reveal">
+      <h4 class="my-title"><span>🔬</span><span data-i18n="ch3.myT">科學推測：Double Brooding 同季第二次繁殖</span></h4>
+      <div class="my-flow">
+        <div class="my-node"><span class="my-date" data-i18n="ch3.myN1date">04.16</span><p data-i18n="ch3.myN1">母鳥<br>帶大寶</p></div>
+        <span class="my-arrow">→</span>
+        <span class="my-gap" data-i18n="ch3.myGap">相隔 12 天</span>
+        <span class="my-arrow">→</span>
+        <div class="my-node"><span class="my-date" data-i18n="ch3.myN2date">04.28</span><p data-i18n="ch3.myN2">巢中<br>出現新蛋</p></div>
+      </div>
+      <p class="my-desc" data-i18n="ch3.myD">從 4/16 幼鳥離巢至 4/28 母鳥產下新蛋，中間僅間隔 <strong>12 天</strong>，正好符合猛禽重新排卵所需的 <strong>10∼21 天生理循環</strong>。初步推測，由於新豐校園食物來源極度穩定充足，母鳥在體力恢復迅速的情況下，極可能主動發動了<strong>「第二次繁殖（Double Brooding）」</strong>，以最大化年度繁殖潛力。</p>
+    </div>
+
+    <div class="know-block">
+      <h3 class="block-title" data-i18n="ch3.ctTitle">公民科學家任務：一起加入辦案！</h3>
+      <p class="ct-note reveal" data-i18n="ch3.ctNote">因為領角鴞外觀極難辨識，目前<em>無法百分之百確認</em>這是否為同一隻母鳥。透過 WNC 未來更新的「巢外攝影機」，你也可以一起加入觀察！</p>
+      <div class="task-list">
+        <div class="task reveal"><span>👂</span><p data-i18n="ch3.ct1"><strong>聽叫聲：</strong>觀察母鳥是否有特定的鳴叫頻率，不同個體的叫聲細節有微妙差異。</p></div>
+        <div class="task reveal"><span>👀</span><p data-i18n="ch3.ct2"><strong>看分工：</strong>母鳥已開始孵第二窩，4/16 離巢的大寶還在附近——餵食大寶的重責大任全數落在公鳥肩上！大寶幾度現蹤回巢箱找鳥媽媽，是非常有趣的家庭動態現象。</p></div>
+        <div class="task reveal"><span>📷</span><p data-i18n="ch3.ct3"><strong>持續觀測：</strong>WNC 巢外攝影機即將上線，屆時更多行為細節將被記錄下來，等待公民科學家一起解謎。</p></div>
+      </div>
+    </div>
+
+    <blockquote class="quote reveal" data-i18n="ch3.quote">在墜地後的第 12 天，攝影機畫面裡再次出現了白色的蛋。大自然從不輕言放棄——母鴞用行動告訴我們什麼叫做韌性。</blockquote>
+  </div>
+</section>
+
+<!-- ══════════ CHAPTER 4 ══════════ -->
+<section class="chapter night" id="chapter4">
+  <div class="night-stars" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="ch-head reveal">
+      <span class="ch-num">Chapter 04</span>
+      <span class="ch-eyebrow" data-i18n="ch4.eyebrow">從點到面的永續影響力 · Sustainability Vision</span>
+      <h2 data-i18n="ch4.title">不只是巢箱，<br>更是一場深耕社區與校園的公民科學</h2>
+    </header>
+
+    <p class="lede center reveal" data-i18n="ch4.p1">這個計畫的價值遠超過製作巢箱本身。我們透過跨界合作，將科技、教育與生物多樣性相結合。</p>
+
+    <div class="impact-grid">
+      <article class="impact reveal">
+        <span class="im-num">01</span>
+        <h3 data-i18n="ch4.i1t">融入校本課程</h3>
+        <p data-i18n="ch4.i1d">如竹東大同國小將巢箱監測融入「臺美生態學校」課程，帶領學生觀察校園樹木健康與野生動物互動。</p>
+      </article>
+      <article class="impact reveal">
+        <span class="im-num">02</span>
+        <h3 data-i18n="ch4.i2t">科普教育升級</h3>
+        <p data-i18n="ch4.i2d">延伸樹木健康觀察（如防範水泥鋪面阻礙樹根呼吸），培養市民與學子的「護樹人」視角。</p>
+      </article>
+      <article class="impact reveal">
+        <span class="im-num">03</span>
+        <h3 data-i18n="ch4.i3t">企業 ESG 內化</h3>
+        <p data-i18n="ch4.i3d">成果收錄於 WNC 永續報告書與 TNFD 報告，讓生物多樣性保育真正落實為企業文化。</p>
+      </article>
+    </div>
+
+    <div class="vision">
+      <h3 class="block-title light" data-i18n="ch4.vTitle">未來三大展望</h3>
+      <ul class="vision-list">
+        <li class="reveal"><span>🛰️</span><p data-i18n="ch4.v1">智慧巢箱與雲端公民科學觀察地圖</p></li>
+        <li class="reveal"><span>🏫</span><p data-i18n="ch4.v2">企業與校園跨域生態創新競賽</p></li>
+        <li class="reveal"><span>🌱</span><p data-i18n="ch4.v3">社區保育日與友善棲地綠化行動</p></li>
+      </ul>
+    </div>
+
+    <div class="films" id="films">
+      <h3 class="block-title light" data-i18n="ch4.filmTitle">觀看生態紀錄</h3>
+      <div class="film-row">
+        <a class="film" href="https://www.youtube.com/watch?v=sUJP331eChg" target="_blank" rel="noopener">
+          <span class="play">▶</span>
+          <b data-i18n="ch4.film1">WNC 巢箱紀錄影片</b>
+          <small>YouTube ↗</small>
+        </a>
+        <a class="film" href="https://youtu.be/trzWwspWIsg" target="_blank" rel="noopener">
+          <span class="play">▶</span>
+          <b data-i18n="ch4.film2">新聞報導－企業捐巢箱助復育領角鴞</b>
+          <small>YouTube ↗</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <p class="foot-hand">Owl Nesting Notes</p>
+      <h4 data-i18n="foot.title">貓頭鷹的育雛筆記</h4>
+      <p data-i18n="foot.claim">一個巢箱，是一次補償；一段紀錄，是一場教育。<br>我們持續守候下一個育雛季。</p>
+    </div>
+    <div class="foot-col">
+      <h5 data-i18n="foot.orgT">推動單位</h5>
+      <p data-i18n="foot.orgV">啟碁科技 WNC 永續團隊</p>
+    </div>
+    <div class="foot-col">
+      <h5 data-i18n="foot.parT">合作夥伴</h5>
+      <p data-i18n="foot.parV">竹風樂境、攀樹師彭康明、橫山大肚國小、新豐國中、竹東大同國小及各大新竹合作學校</p>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <small data-i18n="foot.copy">© 2026 WNC 啟碁科技．貓頭鷹的育雛筆記　|　所有觀察影像皆於不干擾繁殖行為的前提下取得</small>
+    <a href="#top" class="to-top" data-i18n="foot.top">回到頁首 ↑</a>
+  </div>
 </footer>
 
-<script>
-// Scroll reveal
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-revealEls.forEach(el => io.observe(el));
-</script>
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
