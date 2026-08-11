@@ -29,7 +29,7 @@ window.I18N = {
     "ch1.eyebrow": "故事起源 · The Spark of Action",
     "ch1.title": "從一個巢箱開始，<br>串聯人與自然的溫度",
     "ch1.p1": "都市擴張與林地破碎化，導致天然樹洞大量減少，衝擊了依賴樹洞繁衍的猛禽——<strong>領角鴞</strong>。",
-    "ch1.p2": "2023 年內部調查顯示，有 <strong>57% 的同仁</strong> 對環境保護活動充滿熱情。為了將永續關心轉化為實質行動，WNC 自 2024 年起發起「為貓頭鷹打造家園」專案。",
+    "ch1.p2": "2023 年內部調查顯示，<strong>啟碁科技機構暨工業設計處</strong>有 <strong>57% 的同仁</strong>對環境保護活動充滿熱情。為了將永續關心轉化為實質行動，WNC <strong>機構處</strong>自 2024 年起發起「為貓頭鷹打造家園」專案。",
     "ch1.p3": "我們攜手「竹風樂境」與攀樹師彭康明，透過手作工作坊，親手為貓頭鷹打造安全無虞的替代棲地。",
     "ch1.cap1": "2024.09.21 · 巢箱手作工作坊，同仁與眷屬跨世代參與",
     "ch1.s1u": "人", "ch1.s1": "響應工作坊，同仁與眷屬跨世代參與",
@@ -130,6 +130,8 @@ window.I18N = {
     "ch3.ct2": "<strong>看分工：</strong>母鳥已開始孵第二窩，4/16 離巢的大寶還在附近——餵食大寶的重責大任全數落在公鳥肩上！大寶幾度現蹤回巢箱找鳥媽媽，是非常有趣的家庭動態現象。",
     "ch3.ct3": "<strong>持續觀測：</strong>WNC 巢外攝影機即將上線，屆時更多行為細節將被記錄下來，等待公民科學家一起解謎。",
     "ch3.quote": "在墜地後的第 12 天，攝影機畫面裡再次出現了白色的蛋。大自然從不輕言放棄——母鴞用行動告訴我們什麼叫做韌性。",
+    "ch3.aboutT": "關於本計畫",
+    "ch3.aboutD": "本計畫由<strong>啟磁科技（WNC）機構處</strong>連續兩年自主發起永續行動，贊助新竹在地 <strong>11 所學校</strong>架設網路攝影機，總共設置 <strong>18 個生態巢箱</strong>，透過跨界合作，將科技轉化為守護生物多樣性的公民科學力量。",
 
     /* ── Chapter 4 ── */
     "ch4.eyebrow": "從點到面的永續影響力 · Sustainability Vision",
@@ -185,7 +187,7 @@ window.I18N = {
     "ch1.eyebrow": "The Spark of Action",
     "ch1.title": "It began with a single nest box —<br>connecting people and the wild",
     "ch1.p1": "Urban expansion and forest fragmentation have erased countless natural tree cavities, hitting hardest the raptor that depends on them: the <strong>Collared Scops Owl</strong>.",
-    "ch1.p2": "A 2023 internal survey showed that <strong>57% of our colleagues</strong> were eager to take part in environmental action. To turn that care into something real, WNC launched the “A Home for Owls” project in 2024.",
+    "ch1.p2": "A 2023 internal survey showed that within WNC's <strong>Mechanical &amp; Industrial Design Division</strong>, <strong>57% of colleagues</strong> were eager to take part in environmental action. To turn that care into something real, the <strong>Mechanical Division</strong> launched the “A Home for Owls” project in 2024.",
     "ch1.p3": "Together with the Zhufeng Lejing community group and arborist Peng Kang-ming, we built safe alternative habitats with our own hands in hands-on workshops.",
     "ch1.cap1": "21 Sep 2024 · Nest-box workshop, with colleagues and families across generations",
     "ch1.s1u": "people", "ch1.s1": "joined the workshops — colleagues and their families, across generations",
@@ -286,6 +288,8 @@ window.I18N = {
     "ch3.ct2": "<strong>Watch the labour split:</strong> with the female now incubating a second clutch, the fledgling from 16 April still lingers nearby — leaving the entire feeding duty to the male! The fledgling has returned to the box several times looking for its mother: a fascinating family dynamic.",
     "ch3.ct3": "<strong>Keep observing:</strong> WNC's outside-the-box cameras go live soon, recording far more behavioural detail for citizen scientists to decode together.",
     "ch3.quote": "Twelve days after the fall, a white egg appeared on screen once more. Nature never gives up easily — the mother owl showed us exactly what resilience means.",
+    "ch3.aboutT": "About this project",
+    "ch3.aboutD": "This initiative has been launched independently for two consecutive years by the <strong>Facilities Division of Wistron NeWeb Corporation (WNC)</strong>, sponsoring network cameras at <strong>11 local schools</strong> in Hsinchu and installing <strong>18 ecological nest boxes</strong> in total — turning technology, through cross-sector collaboration, into citizen-science power that safeguards biodiversity.",
 
     /* ── Chapter 4 ── */
     "ch4.eyebrow": "From Points to a Network · Sustainability Vision",
